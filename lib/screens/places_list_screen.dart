@@ -13,7 +13,7 @@ class PlacesListScreen extends StatelessWidget {
         actions: <Widget>[
           IconButton(
             onPressed: () {
-              //TODO Navigate to AddPlaceScreen
+              Navigator.of(context).pushNamed('/add-place');
             },
             icon: Icon(Icons.add),
           ),
