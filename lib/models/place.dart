@@ -15,7 +15,7 @@ class PlaceLocation {
 class Place {
   final String id;
   final String placeName;
-  final PlaceLocation
+  final PlaceLocation?
       location; //* Since any location consists of Latitude and Longitude, as well as the address of a place, therefore we have built another class for that
   final File image; //* Since we are going to work with local images
 
