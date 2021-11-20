@@ -15,7 +15,7 @@ class DBHelper {
           'CREATE TABLE user-places(id TEXT PRIMARY KEY, title TEXT, image TEXT)');
     }, version: 1);
 
-    database.insert(
+    await database.insert(
       table,
       data,
       conflictAlgorithm: sql.ConflictAlgorithm.replace,
