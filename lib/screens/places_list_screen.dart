@@ -21,25 +21,36 @@ class PlacesListScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Consumer<PlacesProvider>(
-        child: const Center(
-          child: Text("There are no Places here. Start adding some!"),
-        ),
-        builder: (ctx, greatPlaces, ch) => greatPlaces.placesList.isEmpty
-            ? ch!
-            : ListView.builder(
-                itemCount: greatPlaces.placesList.length,
-                itemBuilder: (ctx, i) => ListTile(
-                  leading: CircleAvatar(
-                    backgroundImage: FileImage(
-                      greatPlaces.placesList[i].image,
-                    ),
-                  ),
-                  title: Text(greatPlaces.placesList[i].placeName),
-                  onTap: () {
-                    //TODO Go to Places Detail Screen
-                  },
+      body: FutureBuilder(
+        future: Provider.of<PlacesProvider>(context, listen: false)
+            .fetchAndSetPlaces(),
+        builder: (ctx, AsyncSnapshot<void> snapshot) => snapshot
+                    .connectionState ==
+                ConnectionState.waiting
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : Consumer<PlacesProvider>(
+                child: const Center(
+                  child: Text("There are no Places here. Start adding some!"),
                 ),
+                builder: (ctx, greatPlaces, ch) =>
+                    greatPlaces.placesList.isEmpty
+                        ? ch!
+                        : ListView.builder(
+                            itemCount: greatPlaces.placesList.length,
+                            itemBuilder: (ctx, i) => ListTile(
+                              leading: CircleAvatar(
+                                backgroundImage: FileImage(
+                                  greatPlaces.placesList[i].image,
+                                ),
+                              ),
+                              title: Text(greatPlaces.placesList[i].placeName),
+                              onTap: () {
+                                //TODO Go to Places Detail Screen
+                              },
+                            ),
+                          ),
               ),
       ),
     );
